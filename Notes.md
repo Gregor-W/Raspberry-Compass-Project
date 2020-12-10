@@ -1,11 +1,13 @@
 # Commands
 Test I2C:
+```
 sudo i2cdetect -y 1
-
+```
 Calibrate Sensor:
+```
 cd kts/RTEllipsoidFit/
 RTIMULibCal
-
+```
 # SENSOR
 Wie es funktioniert hat:
 ## 1
@@ -46,7 +48,9 @@ cd ..
 ```
 ## Code:
 python code von hier:
+
 https://jakew.me/2018/01/19/st7735-pi/
+
 oder benutze testdisplay.py, dann kann ein Bild im gleichen Ordner wie das Script angezeigt werden
 
 Anpassen von DC = ... und RST = ...
