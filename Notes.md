@@ -1,6 +1,7 @@
 # Commands
 
 # SENSOR
+https://invensense.tdk.com/products/motion-tracking/9-axis/mpu-9250/ 
 ## Installation:
 Von hier übernommen:
 https://kingtidesailing.blogspot.com/2016/02/how-to-setup-mpu-9250-on-raspberry-pi_25.html
@@ -54,9 +55,9 @@ MPU9250CompassSampleRate=1
 
 
 # DISPLAY
-https://jakew.me/2018/01/19/st7735-pi/
-
+https://www.az-delivery.de/en/products/1-8-zoll-spi-tft-display
 ## Installation:
+https://jakew.me/2018/01/19/st7735-pi/
 SPI anmachen mit:
 ```
 sudo raspi-config
