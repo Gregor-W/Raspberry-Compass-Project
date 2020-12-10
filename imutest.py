@@ -189,11 +189,6 @@ while True:
                 # assemble the sentence
                 imu_sentence = iihdm + '\r\n' + iihdt + '\r\n' + iixdr + '\r\n' + tirot + '\r\n'
 
-                # to imu bus
-                f = open('imu_bus', 'w')
-                f.write(str(t_print) + ',' + str(heading) + ',' + str(roll)  + ',' + str(pitch))
-                f.close()
-
                 # To kplex
                 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
                 sock.sendto(imu_sentence, (IMU_IP, IMU_PORT))
@@ -201,4 +196,6 @@ while True:
                 t_print = hack
                 outfile.write("{heading}, {roll}, {pitch}\n".format(**locals()))
             
-    time.sleep(poll_interval*1.0/1000.0)
+        time.sleep(poll_interval*1.0/1000.0)
+    else:
+        print("IMURead failed")
