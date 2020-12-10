@@ -41,4 +41,4 @@ while True:
             print("Heading: %d, Roll: %d, Pitch: %d" % (heading, roll, pitch))
             t_print = hack
 
-        time.sleep(setup_sensor.poll_interval/1000.0)
+        time.sleep(setup_sensor.poll_interval/100.0)

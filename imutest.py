@@ -195,7 +195,7 @@ while True:
                 print("Heading: %d, Roll: %d, Pitch: %d" % (heading, roll, pitch))
                 t_print = hack
                 outfile.write("{heading}, {roll}, {pitch}\n".format(**locals()))
-            
-        time.sleep(poll_interval*1.0/1000.0)
+        time.sleep(poll_interval*1.0/100.0)
     else:
         print("IMURead failed")
+    #time.sleep(poll_interval*1.0/100)
