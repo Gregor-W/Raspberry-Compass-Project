@@ -81,7 +81,7 @@ def getSensorData():
         Gyro = data["gyro"]
         return True
     else:
-    print("Error: failed to IMURead")
+        print("Error: failed to IMURead")
         return False
 
 # convert sensor data to pitch, roll, heading
