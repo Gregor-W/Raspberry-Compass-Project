@@ -20,7 +20,7 @@ while True:
             t_fail = hack
             print("Error: cound not read sensor")
 
-    if setup_sensor.getSensorData()
+    if setup_sensor.getSensorData():
         t_fail_timer = 0.0
         
         # every .05 seconds
