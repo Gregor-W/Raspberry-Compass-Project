@@ -141,64 +141,64 @@ while True:
             heading = yaw - magnetic_deviation
             if heading < 0.1:
                 heading = heading + 360
-        if heading > 360:
-            heading = heading - 360
+            if heading > 360:
+                heading = heading - 360
 
-        t_damp = hack
-        t_one += 1
-        if t_one == 10:
-            t_one = 0
-        t_three += 1
-        if t_three == 30:
-            t_three = 0
-      
-        if (hack - t_print) > 1:
+            t_damp = hack
+            t_one += 1
+            if t_one == 10:
+                t_one = 0
+            t_three += 1
+            if t_three == 30:
+                t_three = 0
+          
+            if (hack - t_print) > 1:
 
-            # health monitor
-            sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-            sock.sendto(str(hack), (MON_IP, MON_PORT))
+                # health monitor
+                sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+                sock.sendto(str(hack), (MON_IP, MON_PORT))
 
-            # iihdm magnetic heading
-            hdm = "IIHDM," + str(round(yaw))[:-2] + ",M"
-            hdmcs = format(reduce(operator.xor,map(ord,hdm),0),'X')
-            if len(hdmcs) == 1:
-                hdmcs = "0" + hdmcs
-            iihdm = "$" + hdm + "*" + hdmcs
+                # iihdm magnetic heading
+                hdm = "IIHDM," + str(round(yaw))[:-2] + ",M"
+                hdmcs = format(reduce(operator.xor,map(ord,hdm),0),'X')
+                if len(hdmcs) == 1:
+                    hdmcs = "0" + hdmcs
+                iihdm = "$" + hdm + "*" + hdmcs
 
-            # iihdt true heading
-            hdt = "IIHDT," + str(round(heading))[:-2] + ",T"
-            hdtcs = format(reduce(operator.xor,map(ord,hdt),0),'X')
-            if len(hdtcs) == 1:
-                hdtcs = "0" + hdtcs
-            iihdt = "$" + hdt + "*" + hdtcs
+                # iihdt true heading
+                hdt = "IIHDT," + str(round(heading))[:-2] + ",T"
+                hdtcs = format(reduce(operator.xor,map(ord,hdt),0),'X')
+                if len(hdtcs) == 1:
+                    hdtcs = "0" + hdtcs
+                iihdt = "$" + hdt + "*" + hdtcs
 
-            # iixdr ahrs data
-            xdr = "IIXDR,A," + str(int(round(roll))) + ",D,ROLL,A,"  + str(int(round(pitch))) + ",D,PTCH,A"
-            xdrcs = format(reduce(operator.xor,map(ord,xdr),0),'X')
-            if len(xdrcs) == 1:
-                xdrcs = "0" + xdrcs
-            iixdr = "$" + xdr + "*" + xdrcs
+                # iixdr ahrs data
+                xdr = "IIXDR,A," + str(int(round(roll))) + ",D,ROLL,A,"  + str(int(round(pitch))) + ",D,PTCH,A"
+                xdrcs = format(reduce(operator.xor,map(ord,xdr),0),'X')
+                if len(xdrcs) == 1:
+                    xdrcs = "0" + xdrcs
+                iixdr = "$" + xdr + "*" + xdrcs
 
-            # tirot rate of turn
-            rot = "TIROT," + str(yawrate*60) + ",A"
-            rotcs = format(reduce(operator.xor,map(ord,rot),0),'X')
-            if len(rotcs) == 1:
-                rotcs = "0" + rotcs
-            tirot = "$" + rot + "*" + rotcs
+                # tirot rate of turn
+                rot = "TIROT," + str(yawrate*60) + ",A"
+                rotcs = format(reduce(operator.xor,map(ord,rot),0),'X')
+                if len(rotcs) == 1:
+                    rotcs = "0" + rotcs
+                tirot = "$" + rot + "*" + rotcs
 
-            # assemble the sentence
-            imu_sentence = iihdm + '\r\n' + iihdt + '\r\n' + iixdr + '\r\n' + tirot + '\r\n'
+                # assemble the sentence
+                imu_sentence = iihdm + '\r\n' + iihdt + '\r\n' + iixdr + '\r\n' + tirot + '\r\n'
 
-            # to imu bus
-            f = open('imu_bus', 'w')
-            f.write(str(t_print) + ',' + str(heading) + ',' + str(roll)  + ',' + str(pitch))
-            f.close()
+                # to imu bus
+                f = open('imu_bus', 'w')
+                f.write(str(t_print) + ',' + str(heading) + ',' + str(roll)  + ',' + str(pitch))
+                f.close()
 
-            # To kplex
-            sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-            sock.sendto(imu_sentence, (IMU_IP, IMU_PORT))
-            print("Heading: %d, Roll: %d, Pitch: %d" % (heading, roll, pitch))
-            t_print = hack
-            outfile.write("{heading}, {roll}, {pitch}\n".format(**locals()))
+                # To kplex
+                sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+                sock.sendto(imu_sentence, (IMU_IP, IMU_PORT))
+                print("Heading: %d, Roll: %d, Pitch: %d" % (heading, roll, pitch))
+                t_print = hack
+                outfile.write("{heading}, {roll}, {pitch}\n".format(**locals()))
             
     time.sleep(poll_interval*1.0/1000.0)
