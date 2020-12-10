@@ -4,7 +4,7 @@
 ## Installation:
 Von hier übernommen:
 https://kingtidesailing.blogspot.com/2016/02/how-to-setup-mpu-9250-on-raspberry-pi_25.html
-Programme installation:
+Programme:
 ```
 sudo apt-get install i2c-tools
 sudo apt-get install cmake
@@ -35,7 +35,7 @@ Config Datei kopieren:
 ```
 cp ~/RTIMULib2/RTEllipsoidFit/RTIMULib.ini ~/Raspberry-Compass-Project
 ```
-Test:
+## Test:
 ```
 python imutest.py
 ```
