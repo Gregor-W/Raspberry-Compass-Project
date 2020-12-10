@@ -104,45 +104,45 @@ while True:
           t_fail = hack
           t_shutdown += 1
 
-  if imu.IMURead():
-    data = imu.getIMUData()
-    fusionPose = data["fusionPose"]
-    Gyro = data["gyro"]
-    t_fail_timer = 0.0
+    if imu.IMURead():
+        data = imu.getIMUData()
+        fusionPose = data["fusionPose"]
+        Gyro = data["gyro"]
+        t_fail_timer = 0.0
 
-    if (hack - t_damp) > .1:
-        roll = round(math.degrees(fusionPose[0]) - rolloff, 1)
-	pitch = round(math.degrees(fusionPose[1]) - pitchoff, 1)
-        yaw = round(math.degrees(fusionPose[2])- yawoff, 1)
-        rollrate = round(math.degrees(Gyro[0]), 1)
-        pitchrate = round(math.degrees(Gyro[1]), 1)
-        yawrate = round(math.degrees(Gyro[2]), 1)
-	if yaw < 0.1:
-            yaw = yaw + 360
-	if yaw > 360:
-	    yaw = yaw - 360
-    
-        # Dampening functions
-        roll_total = roll_total - roll_run[t_one]
-        roll_run[t_one] = roll
-        roll_total = roll_total + roll_run[t_one]
-        roll = round(roll_total / 10, 1)
-        heading_cos_total = heading_cos_total - heading_cos_run[t_three]
-        heading_sin_total = heading_sin_total - heading_sin_run[t_three]
-        heading_cos_run[t_three] = math.cos(math.radians(yaw))
-        heading_sin_run[t_three] = math.sin(math.radians(yaw))
-        heading_cos_total = heading_cos_total + heading_cos_run[t_three]
-        heading_sin_total = heading_sin_total + heading_sin_run[t_three]
-        yaw = round(math.degrees(math.atan2(heading_sin_total/30,heading_cos_total/30)),1)
-        if yaw < 0.1:
-            yaw = yaw + 360.0
+        if (hack - t_damp) > .1:
+            roll = round(math.degrees(fusionPose[0]) - rolloff, 1)
+            pitch = round(math.degrees(fusionPose[1]) - pitchoff, 1)
+            yaw = round(math.degrees(fusionPose[2])- yawoff, 1)
+            rollrate = round(math.degrees(Gyro[0]), 1)
+            pitchrate = round(math.degrees(Gyro[1]), 1)
+            yawrate = round(math.degrees(Gyro[2]), 1)
+            if yaw < 0.1:
+                yaw = yaw + 360
+            if yaw > 360:
+                yaw = yaw - 360
+        
+            # Dampening functions
+            roll_total = roll_total - roll_run[t_one]
+            roll_run[t_one] = roll
+            roll_total = roll_total + roll_run[t_one]
+            roll = round(roll_total / 10, 1)
+            heading_cos_total = heading_cos_total - heading_cos_run[t_three]
+            heading_sin_total = heading_sin_total - heading_sin_run[t_three]
+            heading_cos_run[t_three] = math.cos(math.radians(yaw))
+            heading_sin_run[t_three] = math.sin(math.radians(yaw))
+            heading_cos_total = heading_cos_total + heading_cos_run[t_three]
+            heading_sin_total = heading_sin_total + heading_sin_run[t_three]
+            yaw = round(math.degrees(math.atan2(heading_sin_total/30,heading_cos_total/30)),1)
+            if yaw < 0.1:
+                yaw = yaw + 360.0
 
-        # yaw is magnetic heading, convert to true heading
-        heading = yaw - magnetic_deviation
-        if heading < 0.1:
-            heading = heading + 360
-	if heading > 360:
-	    heading = heading - 360
+            # yaw is magnetic heading, convert to true heading
+            heading = yaw - magnetic_deviation
+            if heading < 0.1:
+                heading = heading + 360
+        if heading > 360:
+            heading = heading - 360
 
         t_damp = hack
         t_one += 1
@@ -151,7 +151,7 @@ while True:
         t_three += 1
         if t_three == 30:
             t_three = 0
-  
+      
         if (hack - t_print) > 1:
 
             # health monitor
@@ -172,16 +172,16 @@ while True:
                 hdtcs = "0" + hdtcs
             iihdt = "$" + hdt + "*" + hdtcs
 
-	    # iixdr ahrs data
+            # iixdr ahrs data
             xdr = "IIXDR,A," + str(int(round(roll))) + ",D,ROLL,A,"  + str(int(round(pitch))) + ",D,PTCH,A"
             xdrcs = format(reduce(operator.xor,map(ord,xdr),0),'X')
             if len(xdrcs) == 1:
                 xdrcs = "0" + xdrcs
             iixdr = "$" + xdr + "*" + xdrcs
 
-	    # tirot rate of turn
-	    rot = "TIROT," + str(yawrate*60) + ",A"
-	    rotcs = format(reduce(operator.xor,map(ord,rot),0),'X')
+            # tirot rate of turn
+            rot = "TIROT," + str(yawrate*60) + ",A"
+            rotcs = format(reduce(operator.xor,map(ord,rot),0),'X')
             if len(rotcs) == 1:
                 rotcs = "0" + rotcs
             tirot = "$" + rot + "*" + rotcs
@@ -200,5 +200,5 @@ while True:
             print("Heading: %d, Roll: %d, Pitch: %d" % (heading, roll, pitch))
             t_print = hack
             outfile.write("{heading}, {roll}, {pitch}\n".format(**locals()))
-        
+            
     time.sleep(poll_interval*1.0/1000.0)
