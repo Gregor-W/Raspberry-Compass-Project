@@ -18,13 +18,6 @@ yawoff = 0.0
 pitchoff = 0.0
 rolloff = 0.0
 
-# timers
-t_print = time.time()
-t_damp = time.time()
-t_fail = time.time()
-t_fail_timer = 0.0
-t_shutdown = 0
-
 if (not imu.IMUInit()):
     print("Error: IMUInit failed")    
 

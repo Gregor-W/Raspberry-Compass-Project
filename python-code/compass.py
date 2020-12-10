@@ -5,6 +5,13 @@ import time
 
 display_refreshrate = 60
 
+# timers
+t_print = time.time()
+t_damp = time.time()
+t_fail = time.time()
+t_fail_timer = 0.0
+t_shutdown = 0
+
 print("poll intervall: %d" % setup_sensor.poll_interval)
 
 while True:
