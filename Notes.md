@@ -1,16 +1,45 @@
 # Commands
-Test I2C:
+
+# SENSOR
+## Installation:
+Von hier übernommen:
+https://kingtidesailing.blogspot.com/2016/02/how-to-setup-mpu-9250-on-raspberry-pi_25.html
+Programme installation:
+```
+sudo apt-get install i2c-tools
+sudo apt-get install cmake
+sudo apt-get install octave
+```
+I2C anmachen mit:
+```
+sudo raspi-config
+```
+I2C test:
 ```
 sudo i2cdetect -y 1
 ```
-Calibrate Sensor:
+RTIMULib Bib:
 ```
-cd kts/RTEllipsoidFit/
+cd ~
+git clone https://github.com/RTIMULib/RTIMULib2
+cd RTIMULib2/Linux/RTIMULibCal
+make -j4
+sudo make install
+```
+## Calibrate Sensor:
+```
+cd ~/RTIMULib2/RTEllipsoidFit/
 RTIMULibCal
 ```
-# SENSOR
-Wie es funktioniert hat:
-## 1
+Config Datei kopieren:
+```
+cp ~/RTIMULib2/RTEllipsoidFit/RTIMULib.ini ~/Raspberry-Compass-Project
+```
+Test:
+```
+python imutest.py
+```
+## SampleRate
 ```
 /boot/config.txt
 dtparam=i2c1_baudrate=400000
@@ -19,11 +48,8 @@ RTIMULib.ini
 MPU9250GyroAccelSampleRate=5
 MPU9250CompassSampleRate=1
 ```
-Python Bind funktioniert nicht mit langsamer rate
-Mit alter rate tut es kurz
 
-## 2
-kabel :P 
+
 
 
 
@@ -31,7 +57,7 @@ kabel :P
 https://jakew.me/2018/01/19/st7735-pi/
 
 ## Installation:
-SPI anmachen:
+SPI anmachen mit:
 ```
 sudo raspi-config
 ```
