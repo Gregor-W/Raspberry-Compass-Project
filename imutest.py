@@ -79,30 +79,30 @@ outfile = open("plot.txt", 'w')
 
 while True:
 
-  hack = time.time()
+    hack = time.time()
 
-  # if it's been longer than 5 seconds since last print
-  if (hack - t_damp) > 5.0:
+    # if it's been longer than 5 seconds since last print
+    if (hack - t_damp) > 5.0:
       
-      if (hack - t_fail) > 1.0:
-          t_one = 0
-          t_three = 0
-          roll_total = 0.0
-          roll_run = [0] * 10
-          heading_cos_total = 0.0
-          heading_sin_total = 0.0
-          heading_cos_run = [0] * 30
-          heading_sin_run = [0] * 30
-          t_fail_timer += 1
-          imu_sentence = "IIXDR,IMU_FAIL," + str(round(t_fail_timer / 60, 1))
-          cs = format(reduce(operator.xor,map(ord,imu_sentence),0),'X')
-          if len(cs) == 1:
+        if (hack - t_fail) > 1.0:
+            t_one = 0
+            t_three = 0
+            roll_total = 0.0
+            roll_run = [0] * 10
+            heading_cos_total = 0.0
+            heading_sin_total = 0.0
+            heading_cos_run = [0] * 30
+            heading_sin_run = [0] * 30
+            t_fail_timer += 1
+            imu_sentence = "IIXDR,IMU_FAIL," + str(round(t_fail_timer / 60, 1))
+            cs = format(reduce(operator.xor,map(ord,imu_sentence),0),'X')
+            if len(cs) == 1:
                 cs = "0" + cs
-          imu_sentence = "$" + imu_sentence + "*" + cs
-          sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-          sock.sendto(imu_sentence, (IMU_IP, IMU_PORT))
-          t_fail = hack
-          t_shutdown += 1
+            imu_sentence = "$" + imu_sentence + "*" + cs
+            sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+            sock.sendto(imu_sentence, (IMU_IP, IMU_PORT))
+            t_fail = hack
+            t_shutdown += 1
 
     if imu.IMURead():
         data = imu.getIMUData()
