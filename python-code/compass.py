@@ -19,15 +19,8 @@ t_shutdown = 0
 print("poll intervall: %d" % setup_sensor.poll_interval)
 
 
-image = Image.open("/home/pi/Raspberry-Compass-Project/justworks.jpg")
-image = image.resize((setup_display.WIDTH, setup_display.HEIGHT), Image.ANTIALIAS)
-draw = ImageDraw.Draw(image)
-width, height = image.size
-
 font = ImageFont.truetype("OpenSans-Regular.ttf")
 
-
-draw.text((10, 25), "world", font=font)
 
 while True:
     
@@ -52,7 +45,10 @@ while True:
             
         # every 1 second:
         if (hack - t_print) > 1:
-            
+            image = Image.open("/home/pi/Raspberry-Compass-Project/justworks.jpg")
+            image = image.resize((setup_display.WIDTH, setup_display.HEIGHT), Image.ANTIALIAS)
+            draw = ImageDraw.Draw(image)
+            draw.text((10, 25), "Heading:" + str(heading), font=font)
             
             setup_display.DISPLAY.display(image)
             print("Heading: %d, Roll: %d, Pitch: %d" % (heading, roll, pitch))
