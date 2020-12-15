@@ -85,5 +85,6 @@ Anpassen von DC = ... und RST = ...
 
 So kann man es aufrufen, ist dann alles in python2:
 ```
+git clone https://github.com/Gregor-W/Raspberry-Compass-Project.git
 python testdisplay.py
 ```
