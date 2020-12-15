@@ -24,9 +24,10 @@ image = image.resize((setup_display.WIDTH, setup_display.HEIGHT), Image.ANTIALIA
 draw = ImageDraw.Draw(image)
 width, height = image.size
 
-font = ImageFont.load("arial.pil")
+font = ImageFont.truetype("OpenSans-Regular.ttf")
 
-setup_display.DISPLAY.display(image)
+
+draw.text((10, 25), "world", font=font)
 
 while True:
     
@@ -51,7 +52,7 @@ while True:
             
         # every 1 second:
         if (hack - t_print) > 1:
-        
+            
             
             setup_display.DISPLAY.display(image)
             print("Heading: %d, Roll: %d, Pitch: %d" % (heading, roll, pitch))
