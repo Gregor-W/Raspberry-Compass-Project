@@ -25,6 +25,14 @@ imu.setSlerpPower(0.02)
 imu.setGyroEnable(True)
 imu.setAccelEnable(True)
 imu.setCompassEnable(True)
+imu.setCompassCalibrationMode(True)
+
+print(imu.IMUGyroBiasValid())
+print(imu.getCompassCalibrationValid())
+print(imu.getCompassCalibrationEllipsoidValid())
+print(imu.getAccelCalibrationValid())
+print(imu.resetFusion())
+
 
 poll_interval = imu.IMUGetPollInterval()
 
@@ -70,7 +78,9 @@ def getSensorData():
     global data, fusionPose, Gyro
     if imu.IMURead():
         data = imu.getIMUData()
-        fusionPose = data["fusionPose"]
+        fusionPose = data["fusionPose"] #fusionPose, fusionQPose, compass
+        if not data["compassValid"]:
+            print("Not valid")
         Gyro = data["gyro"]
         return True
     else:
@@ -92,7 +102,7 @@ def convertSensorData():
         yaw = yaw + 360
     if yaw > 360:
         yaw = yaw - 360
-
+    
     # Dampening functions
     roll_total = roll_total - roll_run[t_one]
     roll_run[t_one] = roll
@@ -105,6 +115,7 @@ def convertSensorData():
     heading_cos_total = heading_cos_total + heading_cos_run[t_three]
     heading_sin_total = heading_sin_total + heading_sin_run[t_three]
     yaw = round(math.degrees(math.atan2(heading_sin_total/30,heading_cos_total/30)),1)
+    
     if yaw < 0.1:
         yaw = yaw + 360.0
 
