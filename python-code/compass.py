@@ -10,6 +10,7 @@ import time
 
 display_refreshrate = 10.0
 sensor_refreshrate = 25.0
+
 plot_rate = 10.0
 
 WRITETOFILE = True
@@ -31,7 +32,7 @@ def sensor(sem, heading, roll, pitch):
     faster = 0
     while True:
         hack = time.time()
-    
+
         if (hack - t_damp) > 5.0:
             if (hack - t_fail) > 1.0:
                 setup_sensor.reset()
@@ -55,7 +56,6 @@ def sensor(sem, heading, roll, pitch):
             time.sleep(setup_sensor.poll_interval*1.0/50.0)
 
 def display(sem, heading, roll, pitch):
-
     
     font = ImageFont.truetype("/home/pi/Raspberry-Compass-Project/python-code/OpenSans-Regular.ttf", 20)
     font2 = ImageFont.truetype("/home/pi/Raspberry-Compass-Project/python-code/OpenSans-Regular.ttf", 20)
@@ -65,7 +65,6 @@ def display(sem, heading, roll, pitch):
     print("Display")
     while True:
         hack = time.time()
-
         #image = Image.open("/home/pi/Raspberry-Compass-Project/justworks.jpg")
         #image = image.resize((setup_display.WIDTH, setup_display.HEIGHT), Image.ANTIALIAS)
         #setup_display.DISPLAY.clear((0,0,0))
@@ -75,6 +74,7 @@ def display(sem, heading, roll, pitch):
         #draw = ImageDraw.Draw(small_image)
         
         image = Image.new("RGB", (setup_display.HEIGHT, setup_display.WIDTH), (0,0,0))
+
         draw = ImageDraw.Draw(image)
         
         with sem:
@@ -93,12 +93,12 @@ def display(sem, heading, roll, pitch):
         #setup_display.DISPLAY.display(small_image, (10, 10 , 59, 59))
         #print("Heading: %d, Roll: %d, Pitch: %d" % (l_heading, l_roll, l_pitch))
         
-        
         wait_time = 1.0/display_refreshrate - (time.time() - hack)
         if wait_time > 0:
             time.sleep(wait_time)
         else:
             print("Display refreshrate to fast: %f" % wait_time)
+
 
 
 def write(sem, heading, roll, pitch):
@@ -135,4 +135,3 @@ if WRITETOFILE:
     p_write.start()
 if DISPLAY:
     p_display.start()
-

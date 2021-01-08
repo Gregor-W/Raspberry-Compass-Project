@@ -32,7 +32,7 @@ disp.clear()
 
 # Create a new PIL image to draw to.
 #image = Image.new("RGB", (WIDTH, HEIGHT))
-image = Image.open("justworks.jpg")
+image = Image.open("python-code/graphics/DisplayDesignOne_quarter_SmallPlane_P&R_Grey.png")
 image = image.resize((WIDTH,HEIGHT), Image.ANTIALIAS)
 draw = ImageDraw.Draw(image)
 width, height = image.size
