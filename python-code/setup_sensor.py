@@ -25,7 +25,7 @@ imu.setSlerpPower(0.02)
 imu.setGyroEnable(True)
 imu.setAccelEnable(True)
 imu.setCompassEnable(True)
-imu.setCompassCalibrationMode(True)
+imu.setCompassCalibrationMode(False)
 
 print(imu.IMUGyroBiasValid())
 print(imu.getCompassCalibrationValid())

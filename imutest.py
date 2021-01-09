@@ -15,7 +15,7 @@ IMU_PORT = 5005
 MON_IP = "127.0.0.5"
 MON_PORT = 5005
 
-SETTINGS_FILE = "RTIMULib"
+SETTINGS_FILE = "python-code/RTIMULib"
 
 s = RTIMU.Settings(SETTINGS_FILE)
 imu = RTIMU.RTIMU(s)
@@ -192,7 +192,7 @@ while True:
                 # To kplex
                 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
                 sock.sendto(imu_sentence, (IMU_IP, IMU_PORT))
-                print("Heading: %d, Roll: %d, Pitch: %d" % (heading, roll, pitch))
+                print("Heading: %d, Roll: %d, Pitch: %d, H2: %s" % (heading, roll, pitch, str(heading)))
                 t_print = hack
                 outfile.write("{heading}, {roll}, {pitch}\n".format(**locals()))
         time.sleep(poll_interval*1.0/100.0)
