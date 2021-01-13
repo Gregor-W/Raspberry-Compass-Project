@@ -8,6 +8,7 @@ import operator
 import os
 
 DEBUG = True
+DAMPENING = False
 
 SETTINGS_FILE = "/home/pi/Raspberry-Compass-Project/python-code/RTIMULib"
 s = RTIMU.Settings(SETTINGS_FILE)
@@ -102,23 +103,24 @@ def convertSensorData():
         yaw = yaw + 360
     if yaw > 360:
         yaw = yaw - 360
+    if DAMPENING:
+        # Dampening functions
+        roll_total = roll_total - roll_run[t_one]
+        roll_run[t_one] = roll
+        roll_total = roll_total + roll_run[t_one]
+        roll = round(roll_total / 10, 1)
+        heading_cos_total = heading_cos_total - heading_cos_run[t_three]
+        heading_sin_total = heading_sin_total - heading_sin_run[t_three]
+        heading_cos_run[t_three] = math.cos(math.radians(yaw))
+        heading_sin_run[t_three] = math.sin(math.radians(yaw))
+        heading_cos_total = heading_cos_total + heading_cos_run[t_three]
+        heading_sin_total = heading_sin_total + heading_sin_run[t_three]
+        yaw = round(math.degrees(math.atan2(heading_sin_total/30,heading_cos_total/30)),1)
     
-    # Dampening functions
-    roll_total = roll_total - roll_run[t_one]
-    roll_run[t_one] = roll
-    roll_total = roll_total + roll_run[t_one]
-    roll = round(roll_total / 10, 1)
-    heading_cos_total = heading_cos_total - heading_cos_run[t_three]
-    heading_sin_total = heading_sin_total - heading_sin_run[t_three]
-    heading_cos_run[t_three] = math.cos(math.radians(yaw))
-    heading_sin_run[t_three] = math.sin(math.radians(yaw))
-    heading_cos_total = heading_cos_total + heading_cos_run[t_three]
-    heading_sin_total = heading_sin_total + heading_sin_run[t_three]
-    yaw = round(math.degrees(math.atan2(heading_sin_total/30,heading_cos_total/30)),1)
+        if yaw < 0.1:
+            yaw = yaw + 360.0
     
-    if yaw < 0.1:
-        yaw = yaw + 360.0
-
+    
     # yaw is magnetic heading, convert to true heading
     heading = yaw - magnetic_deviation
     if heading < 0.1:
