@@ -36,14 +36,16 @@ print("Recommended Poll Interval: %dmS\n" % poll_interval)
 while True:
   if imu.IMURead():
     x, y, z = imu.getFusionData()
-    print("getFusionData: %f %f %f" % (x,y,z))
+    #print("getFusionData: %f %f %f" % (x,y,z))
+    
     data = imu.getIMUData()
     fusionPose = data["fusionPose"]
-    print("fusion pose r: %f p: %f y: %f" % (math.degrees(fusionPose[0]), 
-        math.degrees(fusionPose[1]), math.degrees(fusionPose[2])))
+    compass = data["compass"]
+    
+    print("fusion pose r: %f p: %f y: %f, mag only heading: %f" % (math.degrees(fusionPose[0]), 
+        math.degrees(fusionPose[1]), math.degrees(fusionPose[2]), math.degrees(math.atan2(compass[0], compass[1])) ))
 	
-	compass = data["compass"]
-	print("mag only heading: %f" % math.degrees(math.atan2(compass[0], compass[1])))
+	#print("mag only heading: %f" % math.degrees(math.atan2(compass[0], compass[1])))
 		
 		
     time.sleep(poll_interval*1.0/1000.0)
