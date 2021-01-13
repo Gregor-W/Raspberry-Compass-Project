@@ -22,7 +22,7 @@ sudo i2cdetect -y 1
 RTIMULib Bib:
 ```
 cd ~
-git clone https://github.com/RTIMULib/RTIMULib2
+git clone https://github.com/HongshiTan/RTIMULib2
 cd RTIMULib2/Linux/RTIMULibCal
 make -j4
 sudo make install
@@ -68,7 +68,7 @@ pip install Pillow
 pip install Adafruit_GPIO
 pip install RPi.GPIO
 cd ~
-git clone https://github.com/cskau/Python_ST7735
+git clone https://github.com/Gregor-W/Python_ST7735.git
 cd Python_ST7735
 sudo python setup.py install
 cd ..
@@ -88,3 +88,24 @@ So kann man es aufrufen, ist dann alles in python2:
 git clone https://github.com/Gregor-W/Raspberry-Compass-Project.git
 python testdisplay.py
 ```
+
+
+# Autostart + display fix
+https://tutorials-raspberrypi.de/raspberry-pi-autostart-programm-skript/
+https://unix.stackexchange.com/questions/57292/how-can-i-make-this-daemon-init-run-as-a-non-root-user
+http://blog.scphillips.com/posts/2013/07/getting-a-python-script-to-run-in-the-background-as-a-service-on-boot/
+Add program to autostart
+```
+cp ~/Raspberry-Compass-Project/compass /etc/init.d/
+sudo chmod 755 /etc/init.d/compass
+sudo update-rc.d compass defaults
+```
+To later remove it from autostart:
+```
+sudo update-rc.d -f  compass remove
+```
+To stop it anytime:
+```
+killall python
+```
+
