@@ -27,6 +27,15 @@ cd RTIMULib2/Linux/RTIMULibCal
 make -j4
 sudo make install
 ```
+RTIMULib python:
+```
+cd ~/RTIMULib2/Linux/python/
+sudo apt-get install python-dev
+python setup.py build
+python setup.py install
+python setup.py --help
+```
+
 ## Calibrate Sensor:
 ```
 cd ~/RTIMULib2/RTEllipsoidFit/
