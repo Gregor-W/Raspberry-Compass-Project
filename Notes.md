@@ -33,7 +33,6 @@ cd ~/RTIMULib2/Linux/python/
 sudo apt-get install python-dev
 python setup.py build
 python setup.py install
-python setup.py --help
 ```
 
 ## Calibrate Sensor:
