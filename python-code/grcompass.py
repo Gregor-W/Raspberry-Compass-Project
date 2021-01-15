@@ -76,16 +76,27 @@ def display(sem, heading, roll, pitch):
         layer0 = Image.open("graphics/Background.png")
 	layer1 = Image.new("RGBA",(setup_display.HEIGHT,setup_display.WIDTH),(255,0,0,0))
 	layer2 = Image.open("graphics/Arrow.png")
-	
-	layer0.paste(layer2,(0,0),layer2)
+	layer3 = Image.open("graphics/Disc.png")
 
-       # draw = ImageDraw.Draw(image)
-        
+	#layer0.convert("RGBA")
+	#layer2.convert("RGBA")
+
+	#layer2 = layer2.transpose(Image.ROTATE_90)
+	#layer0 = Image.alpha_composite(layer1,layer2)
+
+
         with sem:
             l_heading = heading.value
             l_roll = roll.value
             l_pitch = pitch.value
-        
+
+
+	layer3 = layer3.rotate(l_heading)
+	layer0.paste(layer3,(16,0),layer3.convert("RGBA"))
+	layer0.paste(layer2,(0,0),layer2)
+	layer0 = layer0.transpose(Image.ROTATE_90)
+
+       # draw = ImageDraw.Draw(image)
        # draw.text((10, 5), "H: %.0f" % l_heading, font=font)
        # draw.text((10, 60), "R: %.0f" % l_roll, font=font2)
        # draw.text((10, 95), "P: %.0f" % l_pitch, font=font2)

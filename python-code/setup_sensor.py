@@ -47,8 +47,7 @@ pitchrate = 0.0
 yawrate = 0.0
 
 # magnetic deviation
-magnetic_deviation = -14
-
+magnetic_deviation = 3
 
 # dampening variables
 t_one = 0
