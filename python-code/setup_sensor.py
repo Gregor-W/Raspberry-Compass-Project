@@ -22,7 +22,7 @@ yawoff = 0.0
 pitchoff = 0.0
 rolloff = 0.0
 
-SETTINGS_FILE = "python-code/RTIMULib"
+SETTINGS_FILE = "RTIMULib"
 
 # set compass calibration during runtime
 COMPASSCALIBRATION = False

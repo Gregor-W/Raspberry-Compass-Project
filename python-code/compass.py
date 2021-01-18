@@ -13,10 +13,10 @@ WRITETOFILE = False
 # turn display on/off
 DISPLAY = True
 # select simple or graphic display
-SIMPLEDISLAY = True
+SIMPLEDISLAY = False
 
 # compass refreshrate
-refreshrate = 10.0
+refreshrate = 20.0
 #######
 
 

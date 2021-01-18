@@ -41,7 +41,7 @@ while True:
     data = imu.getIMUData()
     fusionPose = data["fusionPose"]
     compass = data["compass"]
-    quaterion = data["quaterion"]
+    quaterion = data["fusionQPose"]
     
     heading = math.degrees(math.atan2(compass[0], compass[1])) 
     
@@ -49,8 +49,8 @@ while True:
         heading += 360
     
     print("fusion pose r: %.2f p: %.2f y: %.2f, mag only heading: %.2f, quaterion: %.2f, %.2f, %.2f, %.2f" % (math.degrees(fusionPose[0]), 
-        math.degrees(fusionPose[1]), math.degrees(fusionPose[2]), heading),
-        quaterion[0], quaterion[1], quaterion[2], quaterion[3])
+        math.degrees(fusionPose[1]), math.degrees(fusionPose[2]), heading,
+        quaterion[0], quaterion[1], quaterion[2], quaterion[3]))
 	
 	#print("mag only heading: %f" % math.degrees(math.atan2(compass[0], compass[1])))
 		

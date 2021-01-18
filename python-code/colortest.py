@@ -59,7 +59,8 @@ def display(sem, heading, roll, pitch):
     
     font = ImageFont.truetype("/home/pi/Raspberry-Compass-Project/python-code/OpenSans-Regular.ttf", 20)
     font2 = ImageFont.truetype("/home/pi/Raspberry-Compass-Project/python-code/OpenSans-Regular.ttf", 20)
-    background = Image.open("graphics/Background.png")
+    #background = Image.new("RGB", (setup_display.HEIGHT, setup_display.WIDTH), (0,0,125))
+    background = Image.open("/home/pi/Data_Compass/Colors.jpg")
     setup_display.DISPLAY.display(background)
     
     print("Display")
@@ -70,13 +71,13 @@ def display(sem, heading, roll, pitch):
         #setup_display.DISPLAY.clear((0,0,0))
         #draw = setup_display.DISPLAY.draw()
         
-        #small_image = Image.new("RGB", (50, 50), (0,0,0))
-        #draw = ImageDraw.Draw(small_image)
+        small_image = Image.new("RGB", (50, 50), (125,0,0))
+        draw = ImageDraw.Draw(small_image)
         
-        layer0 = Image.open("graphics/Background.png")
-	layer1 = Image.new("RGBA",(setup_display.HEIGHT,setup_display.WIDTH),(255,0,0,0))
-	layer2 = Image.open("graphics/Arrow.png")
-	layer3 = Image.open("graphics/Disc.png")
+        #layer0 = Image.open("graphics/Background.png")
+	#layer1 = Image.new("RGBA",(setup_display.HEIGHT,setup_display.WIDTH),(255,0,0,0))
+	#layer2 = Image.open("graphics/Arrow.png")
+	#layer3 = Image.open("graphics/Disc.png")
 
 	#layer0.convert("RGBA")
 	#layer2.convert("RGBA")
@@ -91,19 +92,19 @@ def display(sem, heading, roll, pitch):
             l_pitch = pitch.value
 
 
-	layer3 = layer3.rotate(l_heading)
-	layer0.paste(layer3,(16,0),layer3.convert("RGBA"))
-	layer0.paste(layer2,(0,0),layer2)
-	layer0 = layer0.transpose(Image.ROTATE_90)
+	#layer3 = layer3.rotate(l_heading)
+	#layer0.paste(layer3,(16,0),layer3.convert("RGBA"))
+	#layer0.paste(layer2,(0,0),layer2)
+	#layer0 = layer0.transpose(Image.ROTATE_90)
 
-       # draw = ImageDraw.Draw(image)
+        draw = ImageDraw.Draw(small_image)
        # draw.text((10, 5), "H: %.0f" % l_heading, font=font)
        # draw.text((10, 60), "R: %.0f" % l_roll, font=font2)
        # draw.text((10, 95), "P: %.0f" % l_pitch, font=font2)
         
 	#image = image.transpose(Image.ROTATE_90)
 
-        setup_display.DISPLAY.display(layer0)
+        #setup_display.DISPLAY.display(layer0)
         
         #setup_display.DISPLAY.display(small_image, (10, 10 , 59, 59))
         #print("Heading: %d, Roll: %d, Pitch: %d" % (l_heading, l_roll, l_pitch))
