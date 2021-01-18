@@ -22,7 +22,7 @@ yawoff = 0.0
 pitchoff = 0.0
 rolloff = 0.0
 
-SETTINGS_FILE = "RTIMULib"
+SETTINGS_FILE = "/home/pi/Raspberry-Compass-Project/python-code/RTIMULib"
 
 # set compass calibration during runtime
 COMPASSCALIBRATION = False
