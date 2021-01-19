@@ -9,7 +9,7 @@ import os
 ### options ###
 # Rolling average filter
 # turn filter on/off
-DAMPENING = True
+DAMPENING = False
 # amount values to be averaged
 RA_ROLL = 10 # default 10
 RA_HEADING = 10 # default 30
