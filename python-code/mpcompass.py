@@ -60,7 +60,7 @@ def sensor(sem, heading, roll, pitch):
             t_damp = hack
             
             # sensor poll rate, might need to be adjusted
-            time.sleep(setup_sensor.poll_interval*1.0/50.0)
+            time.sleep(setup_sensor.poll_interval*1.0/350.0)
 
 # function for mp, displays values
 def display(sem, heading, roll, pitch):
