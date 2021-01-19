@@ -105,7 +105,7 @@ http://blog.scphillips.com/posts/2013/07/getting-a-python-script-to-run-in-the-b
 
 Set required permissions for compass.py
 ```
-chmod 755 ~/Raspberry-Compass-Project/python-code/compass.py
+sudo chmod 755 ~/Raspberry-Compass-Project/python-code/compass.py
 ```
 Add program to autostart
 ```
