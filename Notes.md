@@ -102,9 +102,13 @@ python testdisplay.py
 https://tutorials-raspberrypi.de/raspberry-pi-autostart-programm-skript/
 https://unix.stackexchange.com/questions/57292/how-can-i-make-this-daemon-init-run-as-a-non-root-user
 http://blog.scphillips.com/posts/2013/07/getting-a-python-script-to-run-in-the-background-as-a-service-on-boot/
+Set required permissions for compass.py
+```
+chmod 755 ~/Raspberry-Compass-Project/python-code/compass.py#
+```
 Add program to autostart
 ```
-cp ~/Raspberry-Compass-Project/compass /etc/init.d/
+sudo cp ~/Raspberry-Compass-Project/compass /etc/init.d/
 sudo chmod 755 /etc/init.d/compass
 sudo update-rc.d compass defaults
 ```
