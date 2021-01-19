@@ -13,7 +13,7 @@ WRITETOFILE = False
 # turn display on/off
 DISPLAY = True
 # select simple or graphic display
-SIMPLEDISLAY = True
+SIMPLEDISLAY = False
 
 # display and plot refreshrate
 display_refreshrate = 10.0

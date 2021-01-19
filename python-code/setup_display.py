@@ -36,6 +36,7 @@ DISPLAY.clear()
 font = ImageFont.truetype("/home/pi/Raspberry-Compass-Project/python-code/OpenSans-Regular.ttf", 55)
 font2 = ImageFont.truetype("/home/pi/Raspberry-Compass-Project/python-code/OpenSans-Regular.ttf", 30)
 font3 = ImageFont.truetype("/home/pi/Raspberry-Compass-Project/python-code/OpenSans-Regular.ttf", 20)
+font4 = ImageFont.truetype("/home/pi/Raspberry-Compass-Project/python-code/OpenSans-Regular.ttf", 15)
 
 
 # function for simple display
@@ -64,16 +65,27 @@ def fancy_display(heading, roll, pitch):
     # open images
     layer0 = Image.open("/home/pi/Raspberry-Compass-Project/python-code/graphics/Background.png")
     layer1 = Image.new("RGBA",(HEIGHT, WIDTH),(255,0,0,0))
-    layer2 = Image.open("/home/pi/Raspberry-Compass-Project/python-code/graphics/Arrow.png")
+    layer2 = Image.open("/home/pi/Raspberry-Compass-Project/python-code/graphics/OverdiscFull.png")
     layer3 = Image.open("/home/pi/Raspberry-Compass-Project/python-code/graphics/Disc.png")
 
     # rotate compass
     layer3 = layer3.rotate(heading)
     
     # combine layers
-    layer0.paste(layer3,(16,0),layer3.convert("RGBA"))
+    layer0.paste(layer3,(0,0),layer3.convert("RGBA"))
     layer0.paste(layer2,(0,0),layer2.convert("RGBA"))
+
+    draw = ImageDraw.Draw(layer0)
+    draw.text((34, 40), "%.0f" % heading + chr(176), font=font2)
+
+    draw.text((120, 0), "Pitch", font=font4, fill=(0,0,0,0))
+    draw.text((127, 18), "%.0f" % pitch + chr(176), font=font4, fill=(0,0,0,0))
+
+    draw.text((130, 70), "Roll", font=font4, fill=(0,0,0,0))
+    draw.text((121, 88), "%.0f" % roll + chr(176), font=font4, fill=(0,0,0,0))
+
     layer0 = layer0.transpose(Image.ROTATE_90)
 
     layer0 = Image.fromarray(np.array(layer0)[:, :, [2,1,0]])
     DISPLAY.display(layer0)
+
