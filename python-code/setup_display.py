@@ -37,6 +37,7 @@ font = ImageFont.truetype("/home/pi/Raspberry-Compass-Project/python-code/OpenSa
 font2 = ImageFont.truetype("/home/pi/Raspberry-Compass-Project/python-code/OpenSans-Regular.ttf", 30)
 font3 = ImageFont.truetype("/home/pi/Raspberry-Compass-Project/python-code/OpenSans-Regular.ttf", 20)
 font4 = ImageFont.truetype("/home/pi/Raspberry-Compass-Project/python-code/OpenSans-Regular.ttf", 15)
+font5 = ImageFont.truetype("/home/pi/Raspberry-Compass-Project/python-code/OpenSans-Regular.ttf", 40)
 
 
 # function for simple display
@@ -65,24 +66,24 @@ def fancy_display(heading, roll, pitch):
     # open images
     layer0 = Image.open("/home/pi/Raspberry-Compass-Project/python-code/graphics/Background.png")
     layer1 = Image.new("RGBA",(HEIGHT, WIDTH),(255,0,0,0))
-    layer2 = Image.open("/home/pi/Raspberry-Compass-Project/python-code/graphics/OverdiscFull.png")
-    layer3 = Image.open("/home/pi/Raspberry-Compass-Project/python-code/graphics/Disc.png")
+    layer2 = Image.open("/home/pi/Raspberry-Compass-Project/python-code/graphics/Overdisc.png")
+    layer3 = Image.open("/home/pi/Raspberry-Compass-Project/python-code/graphics/Disc1Q1.png")
 
     # rotate compass
     layer3 = layer3.rotate(heading)
     
     # combine layers
-    layer0.paste(layer3,(0,0),layer3.convert("RGBA"))
+    layer0.paste(layer3,(-48,0),layer3.convert("RGBA"))
     layer0.paste(layer2,(0,0),layer2.convert("RGBA"))
 
     draw = ImageDraw.Draw(layer0)
-    draw.text((34, 40), "%.0f" % heading + chr(176), font=font2)
+    draw.text((45, 55), "%.0f" % heading + chr(176), font=font5)
 
-    draw.text((120, 0), "Pitch", font=font4, fill=(0,0,0,0))
-    draw.text((127, 18), "%.0f" % pitch + chr(176), font=font4, fill=(0,0,0,0))
+    draw.text((10, 85), "Pitch", font=font4)
+    draw.text((8, 100), "%.0f" % pitch + chr(176), font=font3, fill=(0,0,0,0))
 
-    draw.text((130, 70), "Roll", font=font4, fill=(0,0,0,0))
-    draw.text((121, 88), "%.0f" % roll + chr(176), font=font4, fill=(0,0,0,0))
+    draw.text((120, 85), "Roll", font=font4)
+    draw.text((120, 100), "%.0f" % roll + chr(176), font=font3, fill=(0,0,0,0))
 
     layer0 = layer0.transpose(Image.ROTATE_90)
 
