@@ -85,7 +85,8 @@ def fancy_display(heading, roll, pitch):
 
     draw.text((120, 85), "Roll", font=font4)
     draw.text((120, 100), "%.0f" % roll + chr(176), font=font3, fill=(0,0,0,0))
-
+    
+    # rotate correctly
     layer0 = layer0.transpose(Image.ROTATE_90)
     
     # color correction
