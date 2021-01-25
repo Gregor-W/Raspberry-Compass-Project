@@ -75,7 +75,8 @@ def fancy_display(heading, roll, pitch):
     # combine layers
     layer0.paste(layer3,(-48,0),layer3.convert("RGBA"))
     layer0.paste(layer2,(0,0),layer2.convert("RGBA"))
-
+    
+    # text
     draw = ImageDraw.Draw(layer0)
     draw.text((45, 55), "%.0f" % heading + chr(176), font=font5)
 
@@ -86,7 +87,9 @@ def fancy_display(heading, roll, pitch):
     draw.text((120, 100), "%.0f" % roll + chr(176), font=font3, fill=(0,0,0,0))
 
     layer0 = layer0.transpose(Image.ROTATE_90)
-
+    
+    # color correction
     layer0 = Image.fromarray(np.array(layer0)[:, :, [2,1,0]])
+    
     DISPLAY.display(layer0)
 
